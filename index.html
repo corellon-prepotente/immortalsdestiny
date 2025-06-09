@@ -59,7 +59,7 @@
             margin-bottom: 2rem;
         }
 
-        .nav-btn {
+        .nav-btn, .sub-btn, .tier-btn, .realm-btn {
             background: rgba(212, 175, 55, 0.2);
             color: #D4AF37;
             border: 2px solid #D4AF37;
@@ -71,7 +71,10 @@
             border-radius: 5px;
         }
 
-        .nav-btn:hover, .nav-btn.active {
+        .nav-btn:hover, .nav-btn.active, 
+        .sub-btn:hover, .sub-btn.active,
+        .tier-btn:hover, .tier-btn.active,
+        .realm-btn:hover, .realm-btn.active {
             background: rgba(212, 175, 55, 0.5);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
@@ -89,6 +92,24 @@
         }
 
         .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .sub-section {
+            display: none;
+        }
+
+        .sub-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tier-section, .realm-section {
+            display: none;
+        }
+
+        .tier-section.active, .realm-section.active {
             display: block;
             animation: fadeIn 0.5s ease;
         }
@@ -137,12 +158,54 @@
             margin-top: 1rem;
         }
 
+        .sub-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tier-buttons, .realm-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .island-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin: 0 auto;
+            max-width: 900px;
+        }
+
+        @media (max-width: 768px) {
+            .island-buttons {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .island-buttons {
+                grid-template-columns: 1fr;
+                max-width: 300px;
+            }
+        }
+
         @media (max-width: 768px) {
             .main-title { font-size: 2.5rem; }
             .sub-title { font-size: 1.2rem; }
             .nav-buttons { flex-direction: column; align-items: center; }
-            .nav-btn { width: 100%; text-align: center; }
+            .nav-btn, .sub-btn, .tier-btn, .realm-btn { width: 100%; text-align: center; }
             .content-section { padding: 1.5rem; }
+            .island-buttons { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -163,72 +226,495 @@
     <section id="overview" class="content-section">
         <h2 class="section-title">Overview</h2>
         <div class="lore-block">
-            <h3 class="lore-title">Title....</h3>
-            <p class="lore-subtitle">SubTitle...</p>
+            <h3 class="lore-title">Main Title</h3>
+            <p class="lore-subtitle">Sub Title</p>
             <div class="lore-content">
-                <p>Main Content...</p>
+                <p>Main Content</p>
             </div>
         </div>
-        
     </section>
 
     <section id="cultivation" class="content-section">
         <h2 class="section-title">Cultivation</h2>
-        <div class="lore-block">
-            <h3 class="lore-title">Title....</h3>
-            <p class="lore-subtitle">SubTitle...</p>
-            <div class="lore-content">
-                <p>Main Content...</p>
+        <div class="sub-buttons">
+            <button class="sub-btn" data-subsection="body-realms">Body Realms</button>
+            <button class="sub-btn" data-subsection="qi-realms">Qi Realms</button>
+            <button class="sub-btn" data-subsection="races">Races</button>
+            <button class="sub-btn" data-subsection="traits">Traits</button>
+        </div>
+        
+        <!-- Body Realms Section -->
+        <div id="body-realms" class="sub-section">
+            <div class="realm-buttons">
+                <button class="realm-btn" data-realm="mortal-foundation-body">Mortal Foundation Stage</button>
+                <button class="realm-btn" data-realm="cultivator-stage">Cultivator Stage</button>
+                <button class="realm-btn" data-realm="cosmic-integration">Cosmic Integration Stage</button>
+                <button class="realm-btn" data-realm="divine-resonance">Divine Resonance Stage</button>
+                <button class="realm-btn" data-realm="transcendent-ascension">Transcendent Ascension Stage</button>
+            </div>
+            
+            <div id="mortal-foundation-body" class="realm-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Mortal Foundation Stage</h3>
+                    <p class="lore-subtitle">The Beginning of Physical Cultivation</p>
+                    <div class="lore-content">
+                        <p>Content about Mortal Foundation Stage goes here...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="cultivator-stage" class="realm-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Cultivator Stage</h3>
+                    <p class="lore-subtitle">Beyond Mortal Limits</p>
+                    <div class="lore-content">
+                        <p>Content about Cultivator Stage goes here...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="cosmic-integration" class="realm-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Cosmic Integration Stage</h3>
+                    <p class="lore-subtitle">Harmony with Universal Forces</p>
+                    <div class="lore-content">
+                        <p>Content about Cosmic Integration Stage goes here...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="divine-resonance" class="realm-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Divine Resonance Stage</h3>
+                    <p class="lore-subtitle">Echoes of the Divine</p>
+                    <div class="lore-content">
+                        <p>Content about Divine Resonance Stage goes here...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="transcendent-ascension" class="realm-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Transcendent Ascension Stage</h3>
+                    <p class="lore-subtitle">Beyond Divine Limitations</p>
+                    <div class="lore-content">
+                        <p>Content about Transcendent Ascension Stage goes here...</p>
+                    </div>
+                </div>
             </div>
         </div>
         
+        <!-- Qi Realms Section -->
+        <div id="qi-realms" class="sub-section">
+            <div class="realm-buttons">
+                <button class="realm-btn" data-realm="mortal-foundation-qi">Mortal Foundation</button>
+                <button class="realm-btn" data-realm="core-cultivation">Core Cultivation</button>
+                <button class="realm-btn" data-realm="soul-cultivation">Soul Cultivation</button>
+                <button class="realm-btn" data-realm="immortal-stages">Immortal Stages</button>
+                <button class="realm-btn" data-realm="divinity-stages">Divinity Stages</button>
+            </div>
+            
+            <div id="mortal-foundation-qi" class="realm-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Mortal Foundation</h3>
+                    <p class="lore-subtitle">The Beginning of Qi Cultivation</p>
+                    <div class="lore-content">
+                        <p>Content about Mortal Foundation Qi Realm goes here...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="core-cultivation" class="realm-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Core Cultivation</h3>
+                    <p class="lore-subtitle">Mysteries Yet to Be Revealed</p>
+                    <div class="lore-content">
+                        <p>Content about this unknown foundation will be added later...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="soul-cultivation" class="realm-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Soul Cultivation</h3>
+                    <p class="lore-subtitle">Mysteries Yet to Be Revealed</p>
+                    <div class="lore-content">
+                        <p>Content about this unknown foundation will be added later...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="immortal-stages" class="realm-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Immortal Stages</h3>
+                    <p class="lore-subtitle">Mysteries Yet to Be Revealed</p>
+                    <div class="lore-content">
+                        <p>Content about this unknown foundation will be added later...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="divinity-stages" class="realm-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Divinity Stages</h3>
+                    <p class="lore-subtitle">Mysteries Yet to Be Revealed</p>
+                    <div class="lore-content">
+                        <p>Content about this unknown foundation will be added later...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Races Section -->
+        <div id="races" class="sub-section">
+            <div class="tier-buttons">
+                <button class="tier-btn" data-tier="non-existential">Non-Existential</button>
+                <button class="tier-btn" data-tier="supreme">Supreme</button>
+                <button class="tier-btn" data-tier="exalted">Exalted</button>
+                <button class="tier-btn" data-tier="common">Common</button>
+            </div>
+            
+            <div id="non-existential-race" class="tier-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Non-Existential Races</h3>
+                    <p class="lore-subtitle">Beyond the Bounds of Reality</p>
+                    <div class="lore-content">
+                        <p>
+                            Elven(Forestborn,Patternweaver,Divine Eternity) <br>
+                            <br>
+                            Chaosborn(Abyssal Warrior,Abyssal Lord,King of Hell) <br>
+                            <br>
+                            Fallen Celestial(Blood Knight,Crimson Sovereign,BloodFallen) <br>
+                            <br>
+                            GoldFlesh(Divine Hunger,Divinity Devourer,God Eater) <br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="supreme-race" class="tier-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Supreme Races</h3>
+                    <p class="lore-subtitle">Peak of Existence</p>
+                    <div class="lore-content">
+                        <p>
+                            Succubus(Dreamweaver,Desireborn,Love Sovereign) <br>
+                            <br>
+                            StarSeed(Voidmarked,StarChild,Celestialborn) <br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="exalted-race" class="tier-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Exalted Races</h3>
+                    <p class="lore-subtitle">Noble Bloodlines</p>
+                    <div class="lore-content">
+                        <p>
+                            Crimsonborn(Bloodstained,BloodMarked,Bloodborn) <br>
+                            <br>
+                            Luminar(Dawnchild,SunVessel,Light Lord) <br>
+                            <br>
+                            Voidtouched(Nullorn,Nexuswalker,Boundless) <br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="common-race" class="tier-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Common Races</h3>
+                    <p class="lore-subtitle">Foundation of the World</p>
+                    <div class="lore-content">
+                        <p>
+                            Beastkin(Wildkin,Dragonkin,BeastKing Bloodline) <br>
+                            <br>
+                            Human(Dirtywalker,Soilstrider,Terraformer) <br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Traits Section -->
+        <div id="traits" class="sub-section">
+            <div class="tier-buttons">
+                <button class="tier-btn" data-tier="non-existential-traits">Non-Existential</button>
+                <button class="tier-btn" data-tier="supreme-traits">Supreme</button>
+                <button class="tier-btn" data-tier="exalted-traits">Exalted</button>
+                <button class="tier-btn" data-tier="common-traits">Common</button>
+            </div>
+            
+            <div id="non-existential-traits" class="tier-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Non-Existential Traits</h3>
+                    <p class="lore-subtitle">Beyond the Bounds of Reality</p>
+                    <div class="lore-content">
+                        <p>Content about Non-Existential traits goes here...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="supreme-traits" class="tier-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Supreme Traits</h3>
+                    <p class="lore-subtitle">Peak of Existence</p>
+                    <div class="lore-content">
+                        <p>Content about Supreme traits goes here...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="exalted-traits" class="tier-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Exalted Traits</h3>
+                    <p class="lore-subtitle">Noble Characteristics</p>
+                    <div class="lore-content">
+                        <p>Content about Exalted traits goes here...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="common-traits" class="tier-section">
+                <div class="lore-block">
+                    <h3 class="lore-title">Common Traits</h3>
+                    <p class="lore-subtitle">Foundation of the World</p>
+                    <div class="lore-content">
+                        <p>Content about Common traits goes here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+
     <section id="heavens-trial" class="content-section">
         <h2 class="section-title">Heaven's Trial</h2>
         <div class="lore-block">
-            <h3 class="lore-title">Title....</h3>
-            <p class="lore-subtitle">SubTitle...</p>
+            <h3 class="lore-title">Main Title</h3>
+            <p class="lore-subtitle">Sub Title</p>
             <div class="lore-content">
-                <p>Main Content...</p>
+                <p>Main Content</p>
             </div>
         </div>
-        
     </section>  
 
     <section id="divine-pantheon" class="content-section">
         <h2 class="section-title">Divine Pantheon</h2>
         <div class="lore-block">
-            <h3 class="lore-title">Title....</h3>
-            <p class="lore-subtitle">SubTitle...</p>
+            <h3 class="lore-title">Main Title</h3>
+            <p class="lore-subtitle">Sub Title</p>
             <div class="lore-content">
-                <p>Main Content...</p>
+                <p>Main Content</p>
             </div>
         </div>
-        
     </section>
 
     <section id="seven-islands" class="content-section">
         <h2 class="section-title">Seven Islands</h2>
-        <div class="lore-block">
-            <h3 class="lore-title">Title....</h3>
-            <p class="lore-subtitle">SubTitle...</p>
-            <div class="lore-content">
-                <p>Main Content...</p>
+        <!-- Island Buttons -->
+        <div class="island-buttons">
+            <button class="sub-btn" data-island="creation">Creation Isle</button>
+            <button class="sub-btn" data-island="death">Death's Domain</button>
+            <button class="sub-btn" data-island="blood">Blood Isle</button>
+            <button class="sub-btn" data-island="luminous">Luminous Isle</button>
+            <button class="sub-btn" data-island="whispering">Whispering Woods</button>
+            <button class="sub-btn" data-island="veiled">Veiled Isle</button>
+            <button class="sub-btn" data-island="haven">Haven Isle</button>
+            <button class="sub-btn" data-island="unknown">Unknown Isle</button>
+        </div>
+
+        <!-- Island Sections -->
+        <div id="creation-island" class="sub-section">
+            <div class="lore-block">
+                <h3 class="lore-title">Creation Isle</h3>
+                <p class="lore-subtitle">Unknown</p>
+                <div class="lore-content">
+                    <p>Unknown</p>
+                </div>
             </div>
         </div>
-        
+
+        <div id="death-island" class="sub-section">
+            <div class="lore-block">
+                <h3 class="lore-title">Death's Domain</h3>
+                <p class="lore-subtitle">Unknown</p>
+                <div class="lore-content">
+                    <p>Unknown</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="blood-island" class="sub-section">
+            <div class="lore-block">
+                <h3 class="lore-title">Blood Isle</h3>
+                <p class="lore-subtitle">Unknown</p>
+                <div class="lore-content">
+                    <p>Unknown</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="luminous-island" class="sub-section">
+            <div class="lore-block">
+                <h3 class="lore-title">Luminous Isle</h3>
+                <p class="lore-subtitle">Unknown</p>
+                <div class="lore-content">
+                    <p>Unknown</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="whispering-island" class="sub-section">
+            <div class="lore-block">
+                <h3 class="lore-title">Whispering Woods</h3>
+                <p class="lore-subtitle">Unknown</p>
+                <div class="lore-content">
+                    <p>Unknown</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="veiled-island" class="sub-section">
+            <div class="lore-block">
+                <h3 class="lore-title">Veiled Isle</h3>
+                <p class="lore-subtitle">Unknown</p>
+                <div class="lore-content">
+                    <p>Unknown</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="haven-island" class="sub-section">
+            <div class="lore-block">
+                <h3 class="lore-title">Haven Isle</h3>
+                <p class="lore-subtitle">Unknown</p>
+                <div class="lore-content">
+                    <p>Unknown</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="unknown-island" class="sub-section">
+            <div class="lore-block">
+                <h3 class="lore-title">Unknown Isle</h3>
+                <p class="lore-subtitle">Unknown</p>
+                <div class="lore-content">
+                    <p>Unknown</p>
+                </div>
+            </div>
+        </div>
     </section>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Main navigation buttons
             const buttons = document.querySelectorAll('.nav-btn');
             const sections = document.querySelectorAll('.content-section');
-
+            
+            // Cultivation sub-buttons
+            const subButtons = document.querySelectorAll('.sub-btn');
+            const subSections = document.querySelectorAll('.sub-section');
+            
+            // Tier buttons (for races and traits)
+            const tierButtons = document.querySelectorAll('.tier-btn');
+            const tierSections = document.querySelectorAll('.tier-section');
+            
+            // Realm buttons (for body and qi realms)
+            const realmButtons = document.querySelectorAll('.realm-btn');
+            const realmSections = document.querySelectorAll('.realm-section');
+            
+            // Island buttons
+            const islandButtons = document.querySelectorAll('[data-island]');
+            
+            // Initialize first section as active
+            buttons[0].classList.add('active');
+            sections[0].classList.add('active');
+            
+            // Main navigation button functionality
             buttons.forEach(button => {
                 button.addEventListener('click', () => {
                     buttons.forEach(btn => btn.classList.remove('active'));
                     sections.forEach(section => section.classList.remove('active'));
+                    
                     button.classList.add('active');
                     document.getElementById(button.getAttribute('data-section')).classList.add('active');
+                    
+                    // Hide all sub-sections when switching main sections
+                    subSections.forEach(section => section.classList.remove('active'));
+                    subButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Hide all tier sections and buttons
+                    tierSections.forEach(section => section.classList.remove('active'));
+                    tierButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Hide all realm sections and buttons
+                    realmSections.forEach(section => section.classList.remove('active'));
+                    realmButtons.forEach(btn => btn.classList.remove('active'));
+                });
+            });
+            
+            // Cultivation sub-button functionality
+            subButtons.forEach(button => {
+                if (button.hasAttribute('data-subsection')) {
+                    button.addEventListener('click', () => {
+                        const parentSection = button.closest('.content-section');
+                        parentSection.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
+                        parentSection.querySelectorAll('.sub-section').forEach(section => section.classList.remove('active'));
+                        
+                        button.classList.add('active');
+                        document.getElementById(button.getAttribute('data-subsection')).classList.add('active');
+                        
+                        // Hide all tier sections and buttons when switching sub-sections
+                        parentSection.querySelectorAll('.tier-section').forEach(section => section.classList.remove('active'));
+                        parentSection.querySelectorAll('.tier-btn').forEach(btn => btn.classList.remove('active'));
+                        
+                        // Hide all realm sections and buttons when switching sub-sections
+                        parentSection.querySelectorAll('.realm-section').forEach(section => section.classList.remove('active'));
+                        parentSection.querySelectorAll('.realm-btn').forEach(btn => btn.classList.remove('active'));
+                    });
+                }
+            });
+            
+            // Tier button functionality (for races and traits)
+            tierButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const parentSubSection = button.closest('.sub-section');
+                    parentSubSection.querySelectorAll('.tier-btn').forEach(btn => btn.classList.remove('active'));
+                    parentSubSection.querySelectorAll('.tier-section').forEach(section => section.classList.remove('active'));
+                    
+                    button.classList.add('active');
+                    
+                    // Handle both race and trait tiers
+                    const tierType = button.getAttribute('data-tier');
+                    if (tierType.includes('traits')) {
+                        document.getElementById(tierType).classList.add('active');
+                    } else {
+                        document.getElementById(`${tierType}-race`).classList.add('active');
+                    }
+                });
+            });
+            
+            // Realm button functionality (for body and qi realms)
+            realmButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const parentSubSection = button.closest('.sub-section');
+                    parentSubSection.querySelectorAll('.realm-btn').forEach(btn => btn.classList.remove('active'));
+                    parentSubSection.querySelectorAll('.realm-section').forEach(section => section.classList.remove('active'));
+                    
+                    button.classList.add('active');
+                    document.getElementById(button.getAttribute('data-realm')).classList.add('active');
+                });
+            });
+            
+            islandButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const parentSection = button.closest('.content-section');
+                    parentSection.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
+                    parentSection.querySelectorAll('.sub-section').forEach(section => section.classList.remove('active'));
+                    
+                    button.classList.add('active');
+                    document.getElementById(`${button.getAttribute('data-island')}-island`).classList.add('active');
                 });
             });
         });
