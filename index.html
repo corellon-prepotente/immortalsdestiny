@@ -70,7 +70,8 @@
             transition: all 0.3s ease;
             border-radius: 5px;
         }
-
+        
+        
         .nav-btn:hover, .nav-btn.active, 
         .sub-btn:hover, .sub-btn.active,
         .tier-btn:hover, .tier-btn.active,
@@ -167,7 +168,7 @@
             margin-bottom: 1.5rem;
         }
 
-        .tier-buttons, .realm-buttons {
+        .tier-buttons, .realm-buttons , .link-buttons {
             display: flex;
             justify-content: center;
             gap: 1rem;
@@ -175,6 +176,8 @@
             padding: 1rem;
             margin-bottom: 1.5rem;
         }
+        
+        
 
         .island-buttons {
             display: grid;
@@ -221,8 +224,10 @@
         <button class="nav-btn" data-section="cultivation">Cultivation</button>
         <button class="nav-btn" data-section="divine-pantheon">Divine Pantheon</button>
         <button class="nav-btn" data-section="heavens-trial">Heaven's Trial</button>
+        <button class="nav-btn" data-section="links">Links</button>
     </div>
 
+    
     <section id="overview" class="content-section">
         <h2 class="section-title">Overview</h2>
             <div class="lore-block">
@@ -259,9 +264,6 @@ Experience authentic Murim cultivation with deep lore, meaningful progression, a
             <br>
 
             
-
-
-            </div>
             <h2 class="section-title">Lore</h2>
             <div class = "lore-block">
                 <h3 class="lore-title">The Chronicles of Taeloria</h3>
@@ -311,6 +313,23 @@ The Bloodfallen Sect: Scions of Carnage - Aster's warriors divided into three ho
 The Independent Cultivation Movement - Following Corellon's Divine Mandate, exceptional cultivators forge their own sects and techniques, representing a new possibility the gods never envisioned.</p>
                 </div>
         </div>
+
+        
+            <div class = "lore-block">
+                <h3 class="lore-title">Instructions</h3>
+                <p class="lore-subtitle">For Beginners</p>
+                <div class="lore-content">
+                    <p>
+                      C - Cultivate<br>
+                      <br>
+                      V - Train <br>
+                      <br>
+                      B - Qi Breakthrough<br>
+                      <br>
+                      X - Body Breakthrough<br>
+                    </p>
+                </div>
+            </div>
     </section>
 
     <section id="cultivation" class="content-section">
@@ -374,17 +393,6 @@ The Independent Cultivation Movement - Following Corellon's Divine Mandate, exce
                     </div>
                 </div>
 
-                <div class = "lore-block">
-                    <h3 class="lore-title">Heavenly Path</h3>
-                    <p class="lore-subtitle">Originally from the Celestial Courts, acquired by Aster</p>
-                    <div class="lore-content"><ul>
-                            <li><strong>Energy Color:</strong></li>
-                            <li><strong>Philosophy:</strong> </li>
-                            <li><strong>Masters:</strong></li>
-                            <li><strong>Practitioners:</strong></li>
-                        </ul>
-                    </div>
-                </div>
 
                 <div class = "lore-block">
                     <h3 class="lore-title">Creation Path</h3>
@@ -898,7 +906,17 @@ Choose your divine allegiance carefully - the gods remember both loyalty and bet
             </div>
         </div>
     </section>
+    <section id = "links" class = content-section>
+      <h2 class = "section-title">Links</h2>
+      <div class = "lore-content">
+        <div class="link-buttons">
+  <button class="nav-btn" onclick="window.open('https://www.discord.gg/immortalsdestiny', '_blank')">Discord</button>
+  <button class="nav-btn" onclick="window.open('https://www.roblox.com/games/134063901753232/Immortals-Destiny-Official-Update', '_blank')">Game</button>
+  <button class="nav-btn" onclick="window.open('https://www.paypal.me/jayt13', '_blank')">Donation</button>
+</div>
 
+
+    </section>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Main navigation buttons
