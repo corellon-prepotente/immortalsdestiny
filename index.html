@@ -8,16 +8,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Marcellus&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --dark-bg: #0a0a15;
+            --content-bg: rgba(15, 15, 25, 0.8);
+            --content-border: rgba(212, 175, 55, 0.3);
+            --font-title: 'Cinzel', serif;
+            --font-body: 'Marcellus', serif;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Marcellus', serif;
-            background: #0a0a15 url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=1471&auto=format&fit=crop') no-repeat center/cover fixed;
-            color: #fff;
+            font-family: var(--font-body);
+            background: var(--dark-bg) url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=1471&auto=format&fit=crop') no-repeat center/cover fixed;
+            color: #f0f0f0;
             line-height: 1.8;
             min-height: 100vh;
             overflow-x: hidden;
@@ -27,19 +40,20 @@
         .header {
             text-align: center;
             padding: 2rem;
-            background: rgba(10, 10, 20, 0.8);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(10, 10, 20, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--content-border);
             border-radius: 10px;
             margin-bottom: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
         }
 
         .main-title {
-            font-family: 'Cinzel', serif;
+            font-family: var(--font-title);
             font-size: 4rem;
-            color: #D4AF37;
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
-            letter-spacing: 3px;
+            color: var(--primary-gold);
+            text-shadow: 0 0 10px var(--primary-gold), 0 0 25px rgba(212, 175, 55, 0.5);
+            letter-spacing: 4px;
             margin-bottom: 0.5rem;
         }
 
@@ -48,6 +62,7 @@
             color: #fff;
             opacity: 0.9;
             letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
         }
 
         .nav-buttons {
@@ -59,156 +74,185 @@
             margin-bottom: 2rem;
         }
 
-        .nav-btn, .sub-btn, .tier-btn, .realm-btn {
-            background: rgba(212, 175, 55, 0.2);
-            color: #D4AF37;
-            border: 2px solid #D4AF37;
+        .nav-btn, .sub-btn, .tier-btn, .realm-btn, .link-buttons .nav-btn {
+            background: transparent;
+            color: var(--primary-gold);
+            border: 2px solid var(--primary-gold);
             padding: 0.8rem 1.5rem;
-            font-family: 'Cinzel', serif;
+            font-family: var(--font-title);
             font-size: 1.1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 5px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
         
-        
-        .nav-btn:hover, .nav-btn.active, 
-        .sub-btn:hover, .sub-btn.active,
-        .tier-btn:hover, .tier-btn.active,
-        .realm-btn:hover, .realm-btn.active {
-            background: rgba(212, 175, 55, 0.5);
+        .nav-btn::before, .sub-btn::before, .tier-btn::before, .realm-btn::before, .link-buttons .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--primary-gold);
+            transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: -1;
+        }
+
+        .nav-btn:hover, .sub-btn:hover, .tier-btn:hover, .realm-btn:hover, .link-buttons .nav-btn:hover {
+            color: var(--dark-bg);
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        .nav-btn:hover::before, .sub-btn:hover::before, .tier-btn:hover::before, .realm-btn:hover::before, .link-buttons .nav-btn:hover::before {
+            width: 100%;
+        }
+
+        .nav-btn.active, .sub-btn.active, .tier-btn.active, .realm-btn.active {
+            color: var(--dark-bg);
+            background: var(--primary-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
         }
 
         .content-section {
             display: none;
             max-width: 900px;
             margin: 0 auto;
-            padding: 2rem;
-            background: rgba(15, 15, 25, 0.8);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 2.5rem;
+            background: var(--content-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--content-border);
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
 
         .content-section.active {
             display: block;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.7s ease-in-out;
         }
 
-        .sub-section {
+        .sub-section, .tier-section, .realm-section {
             display: none;
         }
 
-        .sub-section.active {
+        .sub-section.active, .tier-section.active, .realm-section.active {
             display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .tier-section, .realm-section {
-            display: none;
-        }
-
-        .tier-section.active, .realm-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(25px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .section-title {
-            font-family: 'Cinzel', serif;
-            color: #D4AF37;
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            padding-bottom: 0.5rem;
+            font-family: var(--font-title);
+            color: var(--primary-gold);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--content-border);
+            padding-bottom: 1rem;
+            letter-spacing: 2px;
         }
 
         .lore-block {
             background: rgba(10, 10, 20, 0.6);
             border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        .lore-block:last-child {
+            margin-bottom: 0;
         }
 
         .lore-title {
-            font-family: 'Cinzel', serif;
-            color: #D4AF37;
-            font-size: 1.4rem;
+            font-family: var(--font-title);
+            color: var(--primary-gold);
+            font-size: 1.6rem;
             margin-bottom: 0.5rem;
+            text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
         }
 
         .lore-subtitle {
-            font-family: 'Marcellus', serif;
+            font-family: var(--font-body);
             color: #c0b0d0;
             font-size: 1.1rem;
             margin-bottom: 1rem;
             font-style: italic;
-            border-bottom: 1px dashed rgba(212, 175, 55, 0.2);
-            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            padding-bottom: 0.75rem;
         }
 
         .lore-content {
             margin-top: 1rem;
+            padding-left: 1rem;
+            border-left: 2px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .lore-content p, .lore-content ul {
+            color: #ddd;
+        }
+        
+        .lore-content ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .lore-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .lore-content strong {
+            color: var(--primary-gold);
+            font-weight: normal;
         }
 
-        .sub-buttons {
+        .sub-buttons, .tier-buttons, .realm-buttons, .link-buttons {
             display: flex;
             justify-content: center;
             gap: 1rem;
             flex-wrap: wrap;
-            padding: 1rem;
+            padding: 1rem 0;
             margin-bottom: 1.5rem;
         }
-
-        .tier-buttons, .realm-buttons , .link-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        
 
         .island-buttons {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            justify-content: center;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 1rem;
-            padding: 1rem;
-            margin: 0 auto;
+            padding: 1rem 0;
+            margin: 0 auto 1.5rem auto;
             max-width: 900px;
         }
 
         @media (max-width: 768px) {
-            .island-buttons {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            body {
+                padding: 10px;
             }
+            .main-title { font-size: 2.8rem; letter-spacing: 2px; }
+            .sub-title { font-size: 1.2rem; }
+            .nav-buttons { flex-direction: column; align-items: center; gap: 0.8rem; }
+            .nav-btn, .sub-btn, .tier-btn, .realm-btn, .link-buttons .nav-btn { width: 100%; max-width: 320px; text-align: center; }
+            .content-section { padding: 1.5rem; }
+            .section-title { font-size: 1.8rem; }
+            .lore-title { font-size: 1.4rem; }
+            .island-buttons { grid-template-columns: 1fr 1fr; }
         }
 
         @media (max-width: 480px) {
-            .island-buttons {
-                grid-template-columns: 1fr;
-                max-width: 300px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .main-title { font-size: 2.5rem; }
-            .sub-title { font-size: 1.2rem; }
-            .nav-buttons { flex-direction: column; align-items: center; }
-            .nav-btn, .sub-btn, .tier-btn, .realm-btn { width: 100%; text-align: center; }
-            .content-section { padding: 1.5rem; }
-            .island-buttons { grid-template-columns: 1fr 1fr; }
+            .main-title { font-size: 2.2rem; }
+            .sub-title { font-size: 1rem; }
+            .island-buttons { grid-template-columns: 1fr; max-width: 300px; }
+            .lore-block { padding: 1.5rem; }
+            .content-section { padding: 1rem; }
         }
     </style>
 </head>
@@ -231,7 +275,7 @@
     <section id="overview" class="content-section">
         <h2 class="section-title">Overview</h2>
             <div class="lore-block">
-            <h3 class="lore-title">Immortal's Destiny</h3>
+            <h3 class="lore-title">Taeloria : The Immortal's Destiny</h3>
             <p class="lore-subtitle">Ascend Through 250 Divine Realms in the Floating World of Taeloria</p>
             <div class="lore-content">
                 <p>Enter Taeloria, the Suspended Vessel of Potential, a realm of seven floating islands where mortals dare to challenge the gods themselves. Born from the ashes of the First Realm's destruction, this cosmic sanctuary exists in perfect balance between the Nine Celestial Courts above and the Eighteen Abyssal Pits below.
@@ -260,8 +304,57 @@ The 60th Heaven's Trial approaches - when cultivators reach sufficient power, th
 Your destiny awaits in the realm where mortals become gods, and gods fear mortal ambition.
 Experience authentic Murim cultivation with deep lore, meaningful progression, and epic PvP in the most detailed cultivation world ever created for Roblox.</p>
             </div>
-            <br>
-            <br>
+            </div>  
+
+            <div class="lore-block">
+            <h3 class="lore-title">The 3 Realms Portals of Taeloria</h3>
+            <h4 class="lore-subtitle">The Three Divine Gateways</h4>
+            <div class="lore-content">
+            <p>Each major island contains an ancient portal that connects Taeloria to the greater cosmic realms. These gateways were sealed during The Sundering but are prophesied to reopen during the 60th Heaven's Trial.</p>
+            </div>
+            <div class = "lore-block">
+                <h3 class="lore-title">Luminous Isle - The Celestial Gateway</h3>
+                <h4 class="lore-subtitle">Portal to Heaven (The Nine Celestial Courts)</h4>
+                <div class="lore-content">
+                <p>The Radiant Threshold: Hidden within the abandoned ruins of the Radiant Order lies a magnificent archway of pure light that reaches toward the heavens. The portal appears as a vertical column of golden-white energy that seems to extend infinitely upward.</p>
+                <br>
+                <br>
+                <h4 class="lore-subtitle">Current Status:</h4>
+                <p>Sealed since The Sundering
+Guarded by the residual spirits of the vanished Radiant Order
+Occasionally flickers with celestial energy during cosmic alignments</p>
+            </div>
+            </div>
+            <div class = "lore-block">
+                <h3 class="lore-title">Death's Domain - The Abyssal Gateway</h3>
+                <h4 class="lore-subtitle">Portal to the Underworld (The Eighteen Abyssal Pits)</h4>
+                <div class="lore-content">
+                <p>The Obsidian Gateway: Within Sango's Twilight Nexus fortress stands the massive archway of pure obsidian - perpetually half-open, showing glimpses of Hell's landscapes. This is Sango's direct connection to his kingdom below.</p>
+                <br>
+                <br>
+                <h4 class="lore-subtitle">Current Status:</h4>
+                <p>Partially active (Sango uses it to travel between realms)
+Heavily guarded by the Soul Reapers
+Raw chaotic energy occasionally surges through</p>
+            </div>
+            </div>
+            <div class = "lore-block">
+                <h3 class="lore-title">Blood Isle - The Blood War Gateway</h3>
+                <h4 class="lore-subtitle">Portal to the Eternal Colosseum</h4>
+                <div class="lore-content">
+                <p>The Crimson Threshold: Deep within Aster's Crimson Citadel lies the gateway to the Eternal Colosseum - a legendary realm of endless, honorable combat where warriors prove their worth through perfect battle.</p>
+                <br>
+                <br>
+                <h4 class="lore-subtitle">The Eternal Colosseum:</h4>
+                <p>A dimension where time flows differently during combat
+Every possible form of honorable warfare exists simultaneously
+Fallen warriors are immediately resurrected to continue fighting
+The ultimate testing ground for martial prowess
+Ruled by the War Eternal - an aspect of pure combat itself</p>
+            </div>
+            </div>
+            </div>
+
 
             
             <h2 class="section-title">Lore</h2>
@@ -299,8 +392,11 @@ From the shattered fragments, the gods created Taeloria - "The Suspended Vessel 
 The Divine Compact established the cosmic hierarchy:
 
 The Supreme Triad: Corellon, Sango, and Aster as ruling gods
+
 The Divine Peers: Arwen and Rondo as siblings of power
+
 The Vassal Gods: Powerful entities serving the Supreme Triad
+
 The Soul Reapers: Sango's extensions guiding souls to their destinies
 
 THE GREAT SECTS
@@ -342,7 +438,6 @@ The Independent Cultivation Movement - Following Corellon's Divine Mandate, exce
             <button class="sub-btn" data-subsection="traits">Traits</button>
         </div>
         
-        <!-- Body Realms Section -->
         <div id = "paths" class="sub-section"> 
             <div class="lore-block">
                 <h3 class="lore-title">Cultivation Paths</h3>
@@ -385,7 +480,7 @@ The Independent Cultivation Movement - Following Corellon's Divine Mandate, exce
                     <h3 class="lore-title">Poison Path</h3>
                     <p class="lore-subtitle">Mysterious origins predating even the First Realm</p>
                     <div class="lore-content"><ul>
-                            <li><strong>Energy Color:</strong>Shimmering viridian mist with pulsing violent dark green veins</li>
+                            <li><strong>Energy Color:</strong>Shimmering viridian mist with pulsing violet veins</li>
                             <li><strong>Philosophy:</strong>All power carries toxicity that can be transmuted to strength</li>
                             <li><strong>Masters:</strong>Near-immunity to corruption, synthesize miraculous elixirs</li>
                             <li><strong>Practitioners:</strong>Those who embrace transformation through adversity</li>
@@ -445,8 +540,8 @@ The Independent Cultivation Movement - Following Corellon's Divine Mandate, exce
             </div>
         </div>
         <div id="body-realms" class="sub-section">
-            <h3 class="lore-title">--------------------------[Physical Foundation Mastery]--------------------------</h3>
-            <p class="lore-subtitle">-------------------------[Tempering Mortal Flesh to Channel Divine Forces]-------------------------</p>
+            <h3 class="lore-title" style="text-align: center;">Physical Foundation Mastery</h3>
+            <p class="lore-subtitle" style="text-align: center; border-bottom: none;">Tempering Mortal Flesh to Channel Divine Forces</p>
             
             <div class="realm-buttons">
                 <button class="realm-btn" data-realm="mortal-foundation-body">Mortal Foundation Stage</button>
@@ -507,10 +602,9 @@ The Independent Cultivation Movement - Following Corellon's Divine Mandate, exce
             </div>
         </div>
         
-        <!-- Qi Realms Section -->
         <div id="qi-realms" class="sub-section">
-            <h3 class="lore-title">---------------------------[Energy Cultivation Mastery]---------------------------</h3>
-            <p class="lore-subtitle">-------------------------[Harnessing Cosmic Forces Through Internal Development]-------------------------</p>
+            <h3 class="lore-title" style="text-align: center;">Energy Cultivation Mastery</h3>
+            <p class="lore-subtitle" style="text-align: center; border-bottom: none;">Harnessing Cosmic Forces Through Internal Development</p>
 
             <div class="realm-buttons">
                 <button class="realm-btn" data-realm="mortal-foundation-qi">Mortal Foundation</button>
@@ -571,7 +665,6 @@ The Independent Cultivation Movement - Following Corellon's Divine Mandate, exce
             </div>
         </div>
         
-        <!-- Races Section -->
         <div id="races" class="sub-section">
             <div class="tier-buttons">
                 <button class="tier-btn" data-tier="non-existential">Non-Existential</button>
@@ -643,7 +736,6 @@ The Independent Cultivation Movement - Following Corellon's Divine Mandate, exce
             </div>
         </div>
         
-        <!-- Traits Section -->
         <div id="traits" class="sub-section">
             <div class="tier-buttons">
                 <button class="tier-btn" data-tier="non-existential-traits">Non-Existential</button>
@@ -812,8 +904,7 @@ Choose your divine allegiance carefully - the gods remember both loyalty and bet
     </section>
 
     <section id="seven-islands" class="content-section">
-        <h2 class="section-title">Seven Islands</h2>
-        <!-- Island Buttons -->
+        <h2 class="section-title">The Seven Islands</h2>
         <div class="island-buttons">
             <button class="sub-btn" data-island="creation">Creation Isle</button>
             <button class="sub-btn" data-island="death">Death's Domain</button>
@@ -825,7 +916,6 @@ Choose your divine allegiance carefully - the gods remember both loyalty and bet
             <button class="sub-btn" data-island="unknown">Unknown Isle</button>
         </div>
 
-        <!-- Island Sections -->
         <div id="creation-island" class="sub-section">
             <div class="lore-block">
                 <h3 class="lore-title">Creation Isle</h3>
@@ -839,9 +929,9 @@ Choose your divine allegiance carefully - the gods remember both loyalty and bet
         <div id="death-island" class="sub-section">
             <div class="lore-block">
                 <h3 class="lore-title">Death's Domain</h3>
-                <p class="lore-subtitle">Unknown</p>
+                <p class="lore-subtitle">The Twilight Realm Where Life and Death Dance in Perfect Balance</p>
                 <div class="lore-content">
-                    <p>Unknown</p>
+                    <p>Death's Domain exists in perpetual twilight, ruled jointly by Sango and Rondo. The Twilight Nexus fortress of six obsidian towers dominates the landscape, while the Obsidian Gateway provides direct access to Hell's eighteen pits. Stars remain visible even during daylight in this realm of transitions, where souls journey between states of existence through impossibly tall obsidian trees that reach into dimensional pockets.</p>
                 </div>
             </div>
         </div>
@@ -849,9 +939,9 @@ Choose your divine allegiance carefully - the gods remember both loyalty and bet
         <div id="blood-island" class="sub-section">
             <div class="lore-block">
                 <h3 class="lore-title">Blood Isle</h3>
-                <p class="lore-subtitle">Unknown</p>
+                <p class="lore-subtitle">The Eternal Arena Where Combat Forges the Soul</p>
                 <div class="lore-content">
-                    <p>Unknown</p>
+                    <p>Blood Isle pulses with the rhythm of The Heart Volcano, a massive formation resembling a beating heart that erupts crimson energy. Aster's Crimson Citadel serves as the ultimate proving ground, where crystallized blood forms ever-changing arenas for honorable combat. The Crimson Threshold portal leads to the Eternal Colosseum, realm of endless warfare where warriors prove their worth through perfect battle.</p>
                 </div>
             </div>
         </div>
@@ -859,9 +949,9 @@ Choose your divine allegiance carefully - the gods remember both loyalty and bet
         <div id="luminous-island" class="sub-section">
             <div class="lore-block">
                 <h3 class="lore-title">Luminous Isle</h3>
-                <p class="lore-subtitle">Unknown</p>
+                <p class="lore-subtitle">The Abandoned Paradise of Lost Elven Wisdom</p>
                 <div class="lore-content">
-                    <p>Unknown</p>
+                    <p> Once home to the mighty Radiant Order, Luminous Isle now stands as mysterious ruins filled with fading magic and forgotten knowledge. The World Tree still radiates diminished golden-green light, while ghostly elven figures practice ancient cultivation techniques in temporal echoes. The Celestial Gate hidden within the ruins leads directly to Heaven's Nine Courts, sealed since The Sundering but destined to reopen.</p>
                 </div>
             </div>
         </div>
@@ -869,9 +959,9 @@ Choose your divine allegiance carefully - the gods remember both loyalty and bet
         <div id="whispering-island" class="sub-section">
             <div class="lore-block">
                 <h3 class="lore-title">Whispering Woods</h3>
-                <p class="lore-subtitle">Unknown</p>
+                <p class="lore-subtitle">The Conscious Forest Where Thought Becomes Reality</p>
                 <div class="lore-content">
-                    <p>Unknown</p>
+                    <p>Whispering Woods blur the boundaries between physical and spiritual realms, where ancient trees with luminescent blue-violet bark create cathedral-like spaces. Consciousness manifests as tangible structures that phase in and out of existence, while ethereal buildings respond to the spiritual activity of visitors. The forest serves as a sanctuary for those studying the connections between mind, spirit, and reality itself.</p>
                 </div>
             </div>
         </div>
@@ -879,9 +969,9 @@ Choose your divine allegiance carefully - the gods remember both loyalty and bet
         <div id="veiled-island" class="sub-section">
             <div class="lore-block">
                 <h3 class="lore-title">Veiled Isle</h3>
-                <p class="lore-subtitle">Unknown</p>
+                <p class="lore-subtitle">The Phantom Realm That Appears Only to the Worthy</p>
                 <div class="lore-content">
-                    <p>Unknown</p>
+                    <p>Veiled Isle phases in and out of reality according to unknown patterns, shrouded in perpetual mist and accessible only through treacherous waters. Its inhuman architecture and alien vegetation suggest origins predating The Sundering, possibly fragments from civilizations of the First Realm. Those fortunate enough to explore it discover powerful artifacts and cultivation insights impossible to find elsewhere, but the island vanishes as mysteriously as it appears.</p>
                 </div>
             </div>
         </div>
@@ -889,9 +979,10 @@ Choose your divine allegiance carefully - the gods remember both loyalty and bet
         <div id="haven-island" class="sub-section">
             <div class="lore-block">
                 <h3 class="lore-title">Haven Isle</h3>
-                <p class="lore-subtitle">Unknown</p>
+                <p class="lore-subtitle">The Neutral Sanctuary Where All Divine Powers Meet in Peace
+</p>
                 <div class="lore-content">
-                    <p>Unknown</p>
+                    <p>Haven Isle maintains perfect balance between all divine influences, serving as the realm's diplomatic heart where conflicts are resolved through negotiation rather than force. The Concord Hall hosts representatives from every faction, while the city of Harmony blends architectural styles from all domains. Sacred treaties established by all gods ensure this remains neutral ground for diplomacy, trade, and refuge.</p>
                 </div>
             </div>
         </div>
@@ -899,135 +990,86 @@ Choose your divine allegiance carefully - the gods remember both loyalty and bet
         <div id="unknown-island" class="sub-section">
             <div class="lore-block">
                 <h3 class="lore-title">Unknown Isle</h3>
-                <p class="lore-subtitle">Unknown</p>
+                <p class="lore-subtitle">The Enigmatic Realm That Defies All Understanding</p>
                 <div class="lore-content">
-                    <p>Unknown</p>
+                    <p>Unknown Isle remains shrouded in absolute mystery, appearing on no maps and accessible through no known means. Unlike Veiled Isle's predictable phases, this realm exists in a state of complete unknowing. Strange energies emanate from its direction during cosmic events, and ancient texts hint at a "Forgotten Eighth" that may hold the key to Taeloria's ultimate destiny. Those who claim to have glimpsed it speak of landscapes that belong to neither Heaven, Hell, nor any known realm of existence.</p>
                 </div>
             </div>
         </div>
     </section>
-    <section id = "links" class = content-section>
+    <section id = "links" class = "content-section">
       <h2 class = "section-title">Links</h2>
-      <div class = "lore-content">
+      <div class = "lore-content" style="border-left: none; padding-left: 0;">
         <div class="link-buttons">
-  <button class="nav-btn" onclick="window.open('https://www.discord.gg/immortalsdestiny', '_blank')">Discord</button>
-  <button class="nav-btn" onclick="window.open('https://www.roblox.com/games/134063901753232/Immortals-Destiny-Official-Update', '_blank')">Game</button>
-  <button class="nav-btn" onclick="window.open('https://www.paypal.me/jayt13', '_blank')">Donation</button>
-</div>
-
-
+            <button class="nav-btn" onclick="window.open('https://www.discord.gg/immortalsdestiny', '_blank')">Discord</button>
+            <button class="nav-btn" onclick="window.open('https://www.roblox.com/games/134063901753232/Immortals-Destiny-Official-Update', '_blank')">Game</button>
+            <button class="nav-btn" onclick="window.open('https://www.paypal.me/jayt13', '_blank')">Donation</button>
+        </div>
+      </div>
     </section>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Main navigation buttons
-            const buttons = document.querySelectorAll('.nav-btn');
-            const sections = document.querySelectorAll('.content-section');
-            
-            // Cultivation sub-buttons
-            const subButtons = document.querySelectorAll('.sub-btn');
+            const mainNavButtons = document.querySelectorAll('.nav-btn[data-section]');
+            const contentSections = document.querySelectorAll('.content-section');
+            const subNavButtons = document.querySelectorAll('.sub-btn');
             const subSections = document.querySelectorAll('.sub-section');
-            
-            // Tier buttons (for races and traits)
             const tierButtons = document.querySelectorAll('.tier-btn');
             const tierSections = document.querySelectorAll('.tier-section');
-            
-            // Realm buttons (for body and qi realms)
             const realmButtons = document.querySelectorAll('.realm-btn');
             const realmSections = document.querySelectorAll('.realm-section');
+
+            function deactivateAll(buttons, sections) {
+                buttons.forEach(btn => btn.classList.remove('active'));
+                sections.forEach(sec => sec.classList.remove('active'));
+            }
+
+            function activate(button, section) {
+                button.classList.add('active');
+                if (section) section.classList.add('active');
+            }
             
-            // Island buttons
-            const islandButtons = document.querySelectorAll('[data-island]');
-            
-            // Initialize first section as active
-            buttons[0].classList.add('active');
-            sections[0].classList.add('active');
-            
-            // Main navigation button functionality
-            buttons.forEach(button => {
+            if (mainNavButtons.length > 0 && contentSections.length > 0) {
+                activate(mainNavButtons[0], contentSections[0]);
+            }
+
+            mainNavButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    buttons.forEach(btn => btn.classList.remove('active'));
-                    sections.forEach(section => section.classList.remove('active'));
+                    deactivateAll(mainNavButtons, contentSections);
+                    deactivateAll(subNavButtons, subSections);
+                    deactivateAll(tierButtons, tierSections);
+                    deactivateAll(realmButtons, realmSections);
                     
-                    button.classList.add('active');
-                    document.getElementById(button.getAttribute('data-section')).classList.add('active');
-                    
-                    // Hide all sub-sections when switching main sections
-                    subSections.forEach(section => section.classList.remove('active'));
-                    subButtons.forEach(btn => btn.classList.remove('active'));
-                    
-                    // Hide all tier sections and buttons
-                    tierSections.forEach(section => section.classList.remove('active'));
-                    tierButtons.forEach(btn => btn.classList.remove('active'));
-                    
-                    // Hide all realm sections and buttons
-                    realmSections.forEach(section => section.classList.remove('active'));
-                    realmButtons.forEach(btn => btn.classList.remove('active'));
+                    const targetSection = document.getElementById(button.getAttribute('data-section'));
+                    activate(button, targetSection);
                 });
             });
-            
-            // Cultivation sub-button functionality
-            subButtons.forEach(button => {
-                if (button.hasAttribute('data-subsection')) {
-                    button.addEventListener('click', () => {
-                        const parentSection = button.closest('.content-section');
-                        parentSection.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
-                        parentSection.querySelectorAll('.sub-section').forEach(section => section.classList.remove('active'));
+
+            function setupSubNavigation(buttons, sections, idPrefix = '', idSuffix = '') {
+                buttons.forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const parentGroup = e.target.closest('.sub-buttons, .tier-buttons, .realm-buttons, .island-buttons');
+                        const siblingButtons = parentGroup.querySelectorAll(e.target.tagName.toLowerCase());
+
+                        siblingButtons.forEach(btn => btn.classList.remove('active'));
+
+                        const targetId = button.getAttribute('data-subsection') || button.getAttribute('data-tier') || button.getAttribute('data-realm') || button.getAttribute('data-island');
+                        const targetSection = document.getElementById(idPrefix + targetId + idSuffix);
                         
-                        button.classList.add('active');
-                        document.getElementById(button.getAttribute('data-subsection')).classList.add('active');
+                        const parentSection = button.closest('.content-section, .sub-section');
+                        if (parentSection) {
+                            parentSection.querySelectorAll('.sub-section, .tier-section, .realm-section').forEach(sec => sec.classList.remove('active'));
+                        }
                         
-                        // Hide all tier sections and buttons when switching sub-sections
-                        parentSection.querySelectorAll('.tier-section').forEach(section => section.classList.remove('active'));
-                        parentSection.querySelectorAll('.tier-btn').forEach(btn => btn.classList.remove('active'));
-                        
-                        // Hide all realm sections and buttons when switching sub-sections
-                        parentSection.querySelectorAll('.realm-section').forEach(section => section.classList.remove('active'));
-                        parentSection.querySelectorAll('.realm-btn').forEach(btn => btn.classList.remove('active'));
+                        activate(button, targetSection);
                     });
-                }
-            });
-            
-            // Tier button functionality (for races and traits)
-            tierButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const parentSubSection = button.closest('.sub-section');
-                    parentSubSection.querySelectorAll('.tier-btn').forEach(btn => btn.classList.remove('active'));
-                    parentSubSection.querySelectorAll('.tier-section').forEach(section => section.classList.remove('active'));
-                    
-                    button.classList.add('active');
-                    
-                    // Handle both race and trait tiers
-                    const tierType = button.getAttribute('data-tier');
-                    if (tierType.includes('traits')) {
-                        document.getElementById(tierType).classList.add('active');
-                    } else {
-                        document.getElementById(`${tierType}-race`).classList.add('active');
-                    }
                 });
-            });
-            
-            // Realm button functionality (for body and qi realms)
-            realmButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const parentSubSection = button.closest('.sub-section');
-                    parentSubSection.querySelectorAll('.realm-btn').forEach(btn => btn.classList.remove('active'));
-                    parentSubSection.querySelectorAll('.realm-section').forEach(section => section.classList.remove('active'));
-                    
-                    button.classList.add('active');
-                    document.getElementById(button.getAttribute('data-realm')).classList.add('active');
-                });
-            });
-            
-            islandButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const parentSection = button.closest('.content-section');
-                    parentSection.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
-                    parentSection.querySelectorAll('.sub-section').forEach(section => section.classList.remove('active'));
-                    
-                    button.classList.add('active');
-                    document.getElementById(`${button.getAttribute('data-island')}-island`).classList.add('active');
-                });
-            });
+            }
+
+            setupSubNavigation(document.querySelectorAll('.sub-btn[data-subsection]'), subSections);
+            setupSubNavigation(document.querySelectorAll('.sub-btn[data-island]'), subSections, '', '-island');
+            setupSubNavigation(tierButtons, tierSections, '', '-race');
+            setupSubNavigation(document.querySelectorAll('.tier-btn[data-tier*="traits"]'), tierSections, '', '');
+            setupSubNavigation(realmButtons, realmSections);
         });
     </script>
 </body>
